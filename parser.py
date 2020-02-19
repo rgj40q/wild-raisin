@@ -4,7 +4,7 @@ import re, sys, lxml
 from pypeg2 import *
 from pypeg2.xmlast import thing2xml
 
-not_a_reserved_word = '(?!(non|le|un|a|ab|ad|adverso|ante|apud|circum|cis|clam|con|concernente|contra|coram|cum|de|depost|desde|detra|dextra|durante|el|erga|ex|excepte|extra|for|foras|foris|in|infra|inter|intra|juxta|malgre|nonobstante|ob|per|por|post|pre|presso|preter|pro|prope|propter|re|salvo|secun|secundo|sin|sub|super|supra|sur|tra|trans|traverso|ultra|usque|verso|via|viste|adeo|amen|ancora|ave|basta|bis|bravo|guai|hallo|holla|miau|out|stop|vale|an|annon|atque|aut|comocunque|donec|dum|dunque|e|et|etsi|igitur|itaque|ma|mais|malgrado|nam|ne|nec|neque|ni|nisi|o|perque|pois|porque|postquam|proque|quam|quando|quandocunque|que|quia|quo|quod|sed|si|sinon|sive|ubi|ubicunque|utrum|vel|ega|eba|iga|iba|oga|oba|uga|uba|iaga|aiba|emga|emba|imga|imba|omga|omba|umga|umba|iamga|iamba|elga|elba|ilga|ilba|olga|olba|ulga|ulba|ialga|ialba|etga|etba|itga|itba|otga|otba|udga|utba|iatga|iatba|zero|uni|duo|tres|quatro|cinque|sex|septe|octo|nove|dece|vinti|trenta|quaranta|cinquanta|sexanta|septanta|octanta|novanta|cento|mille|million|milliardo|billion|billiardo|trillion|trilliardo|quatrillion|quatrilliardo|quintillion|quintilliardo|sextillion|sextilliardo|septillion|septilliardo|octillion|octilliardo|nonillion|nonilliardo|decillion|decilliardo|lu|lui|luo|luu|luia|di|plus|comma|ha|es|va|sia|era)(?=\W))'
+not_a_reserved_word = '(?!(non|le|un|a|ab|ad|adverso|ante|apud|circum|cis|clam|con|concernente|contra|coram|cum|de|depost|desde|detra|dextra|durante|el|erga|ex|excepte|extra|for|foras|foris|in|infra|inter|intra|juxta|malgre|nonobstante|ob|per|por|post|pre|presso|preter|pro|prope|propter|re|salvo|secun|secundo|sin|sub|super|supra|sur|tra|trans|traverso|ultra|usque|verso|via|viste|adeo|amen|ancora|ave|basta|bis|bravo|guai|hallo|holla|miau|out|stop|vale|an|annon|atque|aut|comocunque|donec|dum|dunque|e|et|etsi|igitur|itaque|ma|mais|malgrado|nam|ne|nec|neque|ni|nisi|o|perque|pois|porque|postquam|proque|quam|quando|quandocunque|que|quia|quo|quod|sed|si|sinon|sive|ubi|ubicunque|utrum|vel|eze|oze|ezi|ozi|ezo|ozo|ezu|ozu|ezia|ozia|ezem|ozem|ezim|ozim|ezom|ozom|ezum|ozum|eziam|oziam|ezel|ozel|ezil|ozil|ezol|ozol|ezul|ozul|ezial|ozial|ezet|ozet|ezit|ozit|ezot|ozot|ezut|ozut|eziat|oziat|zero|uni|duo|tres|quatro|cinque|sex|septe|octo|nove|dece|vinti|trenta|quaranta|cinquanta|sexanta|septanta|octanta|novanta|cento|mille|million|milliardo|billion|billiardo|trillion|trilliardo|quatrillion|quatrilliardo|quintillion|quintilliardo|sextillion|sextilliardo|septillion|septilliardo|octillion|octilliardo|nonillion|nonilliardo|decillion|decilliardo|lu|lui|luo|luu|luia|di|plus|comma|ha|es|va|sia|era)(?=\W))'
 
 class Negation(Keyword):
     grammar = Enum(K('non'))
@@ -28,64 +28,64 @@ class ConjSent(Keyword):
     grammar = Enum(K('an'), K('annon'), K('atque'), K('aut'), K('comocunque'), K('donec'), K('dum'), K('dunque'), K('e'), K('et'), K('etsi'), K('igitur'), K('itaque'), K('ma'), K('mais'), K('malgrado'), K('nam'), K('ne'), K('nec'), K('neque'), K('ni'), K('nisi'), K('o'), K('perque'), K('pois'), K('porque'), K('postquam'), K('proque'), K('quam'), K('quando'), K('quandocunque'), K('que'), K('quia'), K('quo'), K('quod'), K('sed'), K('si'), K('sinon'), K('sive'), K('ubi'), K('ubicunque'), K('utrum'), K('vel'))
 
 class ConjArg0(Keyword):
-    grammar = Enum(K('ega'), K('eba'))
+    grammar = Enum(K('eze'), K('oze'))
 
 class ConjArg1(Keyword):
-    grammar = Enum(K('iga'), K('iba'))
+    grammar = Enum(K('ezi'), K('ozi'))
 
 class ConjArg2(Keyword):
-    grammar = Enum(K('oga'), K('oba'))
+    grammar = Enum(K('ezo'), K('ozo'))
 
 class ConjArg3(Keyword):
-    grammar = Enum(K('uga'), K('uba'))
+    grammar = Enum(K('ezu'), K('ozu'))
 
 class ConjArg4(Keyword):
-    grammar = Enum(K('iaga'), K('aiba'))
+    grammar = Enum(K('ezia'), K('ozia'))
 
 class ConjAdv0(Keyword):
-    grammar = Enum(K('emga'), K('emba'))
+    grammar = Enum(K('ezem'), K('ozem'))
 
 class ConjAdv1(Keyword):
-    grammar = Enum(K('imga'), K('imba'))
+    grammar = Enum(K('ezim'), K('ozim'))
 
 class ConjAdv2(Keyword):
-    grammar = Enum(K('omga'), K('omba'))
+    grammar = Enum(K('ezom'), K('ozom'))
 
 class ConjAdv3(Keyword):
-    grammar = Enum(K('umga'), K('umba'))
+    grammar = Enum(K('ezum'), K('ozum'))
 
 class ConjAdv4(Keyword):
-    grammar = Enum(K('aimga'), K('iamba'))
+    grammar = Enum(K('eziam'), K('oziam'))
 
 class ConjAdj0(Keyword):
-    grammar = Enum(K('elga'), K('elba'))
+    grammar = Enum(K('ezel'), K('ozel'))
 
 class ConjAdj1(Keyword):
-    grammar = Enum(K('ilga'), K('ilba'))
+    grammar = Enum(K('ezil'), K('ozil'))
 
 class ConjAdj2(Keyword):
-    grammar = Enum(K('olga'), K('olba'))
+    grammar = Enum(K('ezol'), K('ozol'))
 
 class ConjAdj3(Keyword):
-    grammar = Enum(K('ulga'), K('ulba'))
+    grammar = Enum(K('ezul'), K('ozul'))
 
 class ConjAdj4(Keyword):
-    grammar = Enum(K('ialga'), K('ialba'))
+    grammar = Enum(K('ezial'), K('ozial'))
 
 class ConjPtcp0(Keyword):
-    grammar = Enum(K('etga'), K('etba'))
+    grammar = Enum(K('ezet'), K('ozet'))
 
 class ConjPtcp1(Keyword):
-    grammar = Enum(K('itga'), K('itba'))
+    grammar = Enum(K('ezit'), K('ozit'))
 
 class ConjPtcp2(Keyword):
-    grammar = Enum(K('otga'), K('otba'))
+    grammar = Enum(K('ezot'), K('ozot'))
 
 class ConjPtcp3(Keyword):
-    grammar = Enum(K('udga'), K('utba'))
+    grammar = Enum(K('ezut'), K('ozut'))
 
 class ConjPtcp4(Keyword):
-    grammar = Enum(K('iatga'), K('iatba'))
+    grammar = Enum(K('eziat'), K('oziat'))
 
 class Num0(Keyword):
     grammar = Enum(K('zero'))

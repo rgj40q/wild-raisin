@@ -83,7 +83,7 @@
           </AdvP1>
         </NP0>
       </Arg0>
-      <ConjAdv0>emga</ConjAdv0>
+      <ConjAdv0>ezem</ConjAdv0>
       <Prep>super</Prep>
       <Arg0>
         <Art>le</Art>
