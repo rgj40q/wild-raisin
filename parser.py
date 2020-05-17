@@ -1052,7 +1052,7 @@ class Arg4(List):
     grammar = [NP4, InfP4], maybe_some(ConjArg4, [NP4, InfP4])
 
 class AdvP4(List):
-    grammar = optional(Negation), [Adv4, (Prep, Arg4)], maybe_some(ConjAdv4, [Adv4, (Prep, Arg4)])
+    grammar = optional(Negation), [Adv4, (Prep, Arg4)], maybe_some(ConjAdv4, optional(Negation), [Adv4, (Prep, Arg4)])
 
 class AdjP3(List):
     grammar = optional(Negation), Adj3, optional(AdvP4), maybe_some(optional(ConjAdj3), Adj3, optional(AdvP4))
@@ -1083,7 +1083,7 @@ class Arg3(List):
     grammar = [NP3, InfP3], maybe_some(ConjArg3, [NP3, InfP3])
 
 class AdvP3(List):
-    grammar = optional(Negation), [Adv3, (Prep, Arg3)], optional(AdvP4), maybe_some(ConjAdv3, [Adv3, (Prep, Arg3)], optional(AdvP4))
+    grammar = optional(Negation), [Adv3, (Prep, Arg3)], optional(AdvP4), maybe_some(ConjAdv3, optional(Negation), [Adv3, (Prep, Arg3)], optional(AdvP4))
 
 class AdjP2(List):
     grammar = optional(Negation), Adj2, optional(AdvP3), maybe_some(optional(ConjAdj2), Adj2, optional(AdvP3))
@@ -1114,7 +1114,7 @@ class Arg2(List):
     grammar = [NP2, InfP2], maybe_some(ConjArg2, [NP2, InfP2])
 
 class AdvP2(List):
-    grammar = optional(Negation), [Adv2, (Prep, Arg2)], optional(AdvP3), maybe_some(ConjAdv2, [Adv2, (Prep, Arg2)], optional(AdvP3))
+    grammar = optional(Negation), [Adv2, (Prep, Arg2)], optional(AdvP3), maybe_some(ConjAdv2, optional(Negation), [Adv2, (Prep, Arg2)], optional(AdvP3))
 
 class AdjP1(List):
     grammar = optional(Negation), Adj1, optional(AdvP2), maybe_some(optional(ConjAdj1), Adj1, optional(AdvP2))
@@ -1145,7 +1145,7 @@ class Arg1(List):
     grammar = [NP1, InfP1], maybe_some(ConjArg1, [NP1, InfP1])
 
 class AdvP1(List):
-    grammar = optional(Negation), [Adv1, (Prep, Arg1)], optional(AdvP2), maybe_some(ConjAdv1, [Adv1, (Prep, Arg1)], optional(AdvP2))
+    grammar = optional(Negation), [Adv1, (Prep, Arg1)], optional(AdvP2), maybe_some(ConjAdv1, optional(Negation), [Adv1, (Prep, Arg1)], optional(AdvP2))
 
 class AdjP0(List):
     grammar = optional(Negation), Adj0, optional(AdvP1), maybe_some(optional(ConjAdj0), Adj0, optional(AdvP1))
