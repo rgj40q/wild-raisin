@@ -4,7 +4,22 @@ import re, sys, lxml
 from pypeg2 import *
 from pypeg2.xmlast import thing2xml
 
-not_a_reserved_word = '(?!(non|le|un|a|ab|ad|adverso|ante|apud|circum|cis|clam|con|concernente|contra|coram|cum|de|depost|desde|detra|dextra|durante|el|erga|ex|excepte|extra|for|foras|foris|in|infra|inter|intra|juxta|malgre|nonobstante|ob|per|por|post|pre|presso|preter|pro|prope|propter|re|salvo|secun|secundo|sin|sub|super|supra|sur|tra|trans|traverso|ultra|usque|verso|via|viste|adeo|amen|ancora|ave|basta|bis|bravo|guai|hallo|holla|miau|out|stop|vale|an|annon|atque|aut|comocunque|donec|dum|dunque|e|et|etsi|igitur|itaque|ma|mais|malgrado|nam|ne|nec|neque|ni|nisi|o|perque|pois|porque|postquam|proque|quam|quando|quandocunque|que|quia|quo|quod|sed|si|sinon|sive|ubi|ubicunque|utrum|vel|eze|oze|ezi|ozi|ezo|ozo|ezu|ozu|ezia|ozia|ezem|ozem|ezim|ozim|ezom|ozom|ezum|ozum|eziam|oziam|ezel|ozel|ezil|ozil|ezol|ozol|ezul|ozul|ezial|ozial|ezet|ozet|ezit|ozit|ezot|ozot|ezut|ozut|eziat|oziat|zero|uni|duo|tres|quatro|cinque|sex|septe|octo|nove|dece|vinti|trenta|quaranta|cinquanta|sexanta|septanta|octanta|novanta|cento|mille|million|milliardo|billion|billiardo|trillion|trilliardo|quatrillion|quatrilliardo|quintillion|quintilliardo|sextillion|sextilliardo|septillion|septilliardo|octillion|octilliardo|nonillion|nonilliardo|decillion|decilliardo|lu|lui|luo|luu|luia|di|plu|comma|ha|es|va|sia|era|qua)(?=\W))'
+not_a_reserved_word = '(?!(non|le|un|a|ab|ad|adverso|ante|apud|circum|cis|clam|con|concernente|contra|coram|cum|de|depost|desde|detra|dextra|durante|el|erga|ex|excepte|extra|for|foras|foris|in|infra|inter|intra|juxta|malgre|nonobstante|ob|per|por|post|pre|presso|preter|pro|prope|propter|re|salvo|secun|secundo|sin|sub|super|supra|sur|tra|trans|traverso|ultra|usque|verso|via|viste|adeo|amen|ancora|ave|basta|bis|bravo|guai|hallo|holla|miau|out|stop|vale|an|annon|atque|aut|comocunque|donec|dum|dunque|e|et|etsi|igitur|itaque|ma|mais|malgrado|nam|ne|nec|neque|ni|nisi|o|perque|pois|porque|postquam|proque|quam|quando|quandocunque|que|quia|quo|quod|sed|si|sinon|sive|ubi|ubicunque|utrum|vel|eze|oze|ezi|ozi|ezo|ozo|ezu|ozu|ezia|ozia|ezem|ozem|ezim|ozim|ezom|ozom|ezum|ozum|eziam|oziam|ezel|ozel|ezil|ozil|ezol|ozol|ezul|ozul|ezial|ozial|ezet|ozet|ezit|ozit|ezot|ozot|ezut|ozut|eziat|oziat|zero|uni|duo|tres|quatro|cinque|sex|septe|octo|nove|dece|vinti|trenta|quaranta|cinquanta|sexanta|septanta|octanta|novanta|cento|mille|million|milliardo|billion|billiardo|trillion|trilliardo|quatrillion|quatrilliardo|quintillion|quintilliardo|sextillion|sextilliardo|septillion|septilliardo|octillion|octilliardo|nonillion|nonilliardo|decillion|decilliardo|lu|lui|luo|luu|luia|di|plu|comma|ha|es|va|sia|era|qua|ui|plus|minus|leplus|leminus|prime|secunde|tertie|quarte|quinte|sexte|septime|octave|none|decime|vintesime|trentesime|quarantesime|cinquantesime|sexantesime|septantesime|octantesime|novantesime|centesime|millesime|millionesime|milliardesime|billionesime|billiardesime|trillionesime|trilliardesime|quatrillionesime|quatrilliardesime|quintillionesime|quintilliardesime|sextillionesime|sextilliardesime|septillionesime|septilliardesime|octillionesime|octilliardesime|nonillionesime|nonilliardesime|decillionesime|decilliardesime)(?=\W))'
+
+class Sentence(List):
+    pass
+
+class ComparativeConj(Keyword):
+    grammar = Enum(K('qua'))
+
+class ComparativeAdv(Keyword):
+    grammar = Enum(K('plus'), K('minus'))
+    
+class SuperlativeAdv(Keyword):
+    grammar = Enum(K('leplus'), K('leminus'))
+
+class SubsentenceEnd(Keyword):
+    grammar = Enum(K('iu'))
 
 class Negation(Keyword):
     grammar = Enum(K('non'))
@@ -19,7 +34,7 @@ class Art(Keyword):
     grammar = Enum(K('le'), K('un'))
 
 class Prep(Keyword):
-    grammar = Enum(K('a'), K('ab'), K('ad'), K('adverso'), K('ante'), K('apud'), K('circum'), K('cis'), K('clam'), K('con'), K('concernente'), K('contra'), K('coram'), K('cum'), K('de'), K('depost'), K('desde'), K('detra'), K('dextra'), K('durante'), K('el'), K('erga'), K('ex'), K('excepte'), K('extra'), K('for'), K('foras'), K('foris'), K('in'), K('infra'), K('inter'), K('intra'), K('juxta'), K('malgre'), K('nonobstante'), K('ob'), K('per'), K('por'), K('post'), K('pre'), K('presso'), K('preter'), K('pro'), K('prope'), K('propter'), K('qua'), K('re'), K('salvo'), K('secun'), K('secundo'), K('sin'), K('sub'), K('super'), K('supra'), K('sur'), K('tra'), K('trans'), K('traverso'), K('ultra'), K('usque'), K('verso'), K('via'), K('viste'))
+    grammar = Enum(K('a'), K('ab'), K('ad'), K('adverso'), K('ante'), K('apud'), K('circum'), K('cis'), K('clam'), K('con'), K('concernente'), K('contra'), K('coram'), K('cum'), K('de'), K('depost'), K('desde'), K('detra'), K('dextra'), K('durante'), K('el'), K('erga'), K('ex'), K('excepte'), K('extra'), K('for'), K('foras'), K('foris'), K('in'), K('infra'), K('inter'), K('intra'), K('juxta'), K('malgre'), K('nonobstante'), K('ob'), K('per'), K('por'), K('post'), K('pre'), K('presso'), K('preter'), K('pro'), K('prope'), K('propter'), K('re'), K('salvo'), K('secun'), K('secundo'), K('sin'), K('sub'), K('super'), K('supra'), K('sur'), K('tra'), K('trans'), K('traverso'), K('ultra'), K('usque'), K('verso'), K('via'), K('viste'))
 
 class Interj(Keyword):
     grammar = Enum(K('adeo'), K('amen'), K('ancora'), K('ave'), K('basta'), K('bis'), K('bravo'), K('guai'), K('hallo'), K('holla'), K('miau'), K('out'), K('stop'), K('vale'))
@@ -1023,8 +1038,11 @@ class CardinalNumeral(List):
 class OrdinalNumeral(List):
     grammar = [N1e63_ord, N1e60_ord, N1e57_ord, N1e54_ord, N1e51_ord, N1e48_ord, N1e45_ord, N1e42_ord, N1e39_ord, N1e36_ord, N1e33_ord, N1e30_ord, N1e27_ord, N1e24_ord, N1e21_ord, N1e18_ord, N1e15_ord, N1e12_ord, N1e9_ord, N1e6_ord, N1e3_ord, N_1_999_ord]
 
+class AdjP4i(List):
+    grammar = optional(Negation), [Adj4, (SuperlativeAdv, Adj4), (ComparativeAdv, Adj4, optional(ComparativeConj, Sentence, SubsentenceEnd))]
+
 class AdjP4(List):
-    grammar = optional(Negation), Adj4, maybe_some(optional(ConjAdj4), Adj4)
+    grammar = AdjP4i, maybe_some(optional(ConjAdj4), AdjP4i)
 
 class PtcpP4(List):
     grammar = optional(Negation), [
@@ -1051,11 +1069,17 @@ class InfP4(List):
 class Arg4(List):
     grammar = [NP4, InfP4], maybe_some(ConjArg4, [NP4, InfP4])
 
+class AdvP4i(List):
+    grammar = optional(Negation), [Adv4, (Prep, Arg4), (SuperlativeAdv, Adv4), (ComparativeAdv, Adv4, optional(ComparativeConj, Sentence, SubsentenceEnd))]
+
 class AdvP4(List):
-    grammar = optional(Negation), [Adv4, (Prep, Arg4)], maybe_some(ConjAdv4, optional(Negation), [Adv4, (Prep, Arg4)])
+    grammar = AdvP4i, maybe_some(optional(ConjAdv4), AdvP4i)
+
+class AdjP3i(List):
+    grammar = optional(Negation), [Adj3, (SuperlativeAdv, Adj3), (ComparativeAdv, Adj3, optional(ComparativeConj, Sentence, SubsentenceEnd))], optional(AdvP4)
 
 class AdjP3(List):
-    grammar = optional(Negation), Adj3, optional(AdvP4), maybe_some(optional(ConjAdj3), Adj3, optional(AdvP4))
+    grammar = AdjP3i, maybe_some(optional(ConjAdj3), AdjP3i)
 
 class PtcpP3(List):
     grammar = optional(Negation), [
@@ -1082,11 +1106,17 @@ class InfP3(List):
 class Arg3(List):
     grammar = [NP3, InfP3], maybe_some(ConjArg3, [NP3, InfP3])
 
+class AdvP3i(List):
+    grammar = optional(Negation), [Adv3, (Prep, Arg3), (SuperlativeAdv, Adv3), (ComparativeAdv, Adv3, optional(ComparativeConj, Sentence, SubsentenceEnd))], optional(AdvP4)
+
 class AdvP3(List):
-    grammar = optional(Negation), [Adv3, (Prep, Arg3)], optional(AdvP4), maybe_some(ConjAdv3, optional(Negation), [Adv3, (Prep, Arg3)], optional(AdvP4))
+    grammar = AdvP3i, maybe_some(optional(ConjAdv3), AdvP3i)
+
+class AdjP2i(List):
+    grammar = optional(Negation), [Adj2, (SuperlativeAdv, Adj2), (ComparativeAdv, Adj2, optional(ComparativeConj, Sentence, SubsentenceEnd))], optional(AdvP3)
 
 class AdjP2(List):
-    grammar = optional(Negation), Adj2, optional(AdvP3), maybe_some(optional(ConjAdj2), Adj2, optional(AdvP3))
+    grammar = AdjP2i, maybe_some(optional(ConjAdj2), AdjP2i)
 
 class PtcpP2(List):
     grammar = optional(Negation), [
@@ -1113,11 +1143,17 @@ class InfP2(List):
 class Arg2(List):
     grammar = [NP2, InfP2], maybe_some(ConjArg2, [NP2, InfP2])
 
+class AdvP2i(List):
+    grammar = optional(Negation), [Adv2, (Prep, Arg2), (SuperlativeAdv, Adv2), (ComparativeAdv, Adv2, optional(ComparativeConj, Sentence, SubsentenceEnd))], optional(AdvP3)
+
 class AdvP2(List):
-    grammar = optional(Negation), [Adv2, (Prep, Arg2)], optional(AdvP3), maybe_some(ConjAdv2, optional(Negation), [Adv2, (Prep, Arg2)], optional(AdvP3))
+    grammar = AdvP2i, maybe_some(optional(ConjAdv2), AdvP2i)
+
+class AdjP1i(List):
+    grammar = optional(Negation), [Adj1, (SuperlativeAdv, Adj1), (ComparativeAdv, Adj1, optional(ComparativeConj, Sentence, SubsentenceEnd))], optional(AdvP2)
 
 class AdjP1(List):
-    grammar = optional(Negation), Adj1, optional(AdvP2), maybe_some(optional(ConjAdj1), Adj1, optional(AdvP2))
+    grammar = AdjP1i, maybe_some(optional(ConjAdj1), AdjP1i)
 
 class PtcpP1(List):
     grammar = optional(Negation), [
@@ -1144,11 +1180,17 @@ class InfP1(List):
 class Arg1(List):
     grammar = [NP1, InfP1], maybe_some(ConjArg1, [NP1, InfP1])
 
+class AdvP1i(List):
+    grammar = optional(Negation), [Adv1, (Prep, Arg1), (SuperlativeAdv, Adv1), (ComparativeAdv, Adv1, optional(ComparativeConj, Sentence, SubsentenceEnd))], optional(AdvP2)
+
 class AdvP1(List):
-    grammar = optional(Negation), [Adv1, (Prep, Arg1)], optional(AdvP2), maybe_some(ConjAdv1, optional(Negation), [Adv1, (Prep, Arg1)], optional(AdvP2))
+    grammar = AdvP1i, maybe_some(optional(ConjAdv1), AdvP1i)
+
+class AdjP0i(List):
+    grammar = optional(Negation), [Adj0, (SuperlativeAdv, Adj0), (ComparativeAdv, Adj0, optional(ComparativeConj, Sentence, SubsentenceEnd))], optional(AdvP1)
 
 class AdjP0(List):
-    grammar = optional(Negation), Adj0, optional(AdvP1), maybe_some(optional(ConjAdj0), Adj0, optional(AdvP1))
+    grammar = AdjP0i, maybe_some(optional(ConjAdj0), AdjP0i)
 
 class PtcpP0(List):
     grammar = optional(Negation), [
@@ -1175,8 +1217,11 @@ class InfP0(List):
 class Arg0(List):
     grammar = [NP0, InfP0], maybe_some(ConjArg0, [NP0, InfP0])
 
+class AdvP0i(List):
+    grammar = optional(Negation), [Adv0, (Prep, Arg0), (SuperlativeAdv, Adv0), (ComparativeAdv, Adv0, optional(ComparativeConj, Sentence, SubsentenceEnd))], optional(AdvP1)
+
 class AdvP0(List):
-    grammar = optional(Negation), [Adv0, (Prep, Arg0)], optional(AdvP1), maybe_some(ConjAdv0, optional(Negation), [Adv0, (Prep, Arg0)], optional(AdvP1))
+    grammar = AdvP0i, maybe_some(optional(ConjAdv0), AdvP0i)
 
 class PresentPerfectAuxV(Keyword):
     grammar = Enum(K('habet'), K('ha'))
@@ -1223,8 +1268,7 @@ class VP(List):
         V # simple tenses
     ]
 
-class Sentence(List):
-    grammar = [
+Sentence.grammar = [
         (optional(AdvP0), Arg0, optional(AdvP0), VP,   optional(AdvP0), Arg0, optional(AdvP0)), # SVO
         (optional(AdvP0), VP,   optional(AdvP0), Arg0, optional(AdvP0), Arg0, optional(AdvP0)), # VSO
         (optional(AdvP0), Arg0, optional(AdvP0), Arg0, optional(AdvP0), VP,   optional(AdvP0)), # SOV
