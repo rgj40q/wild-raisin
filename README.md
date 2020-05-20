@@ -1,4 +1,4 @@
-Requires python v3, and packages 'pypeg2' and 'lxml' to run. To install the packages, run in the terminal (e.g. cmd.exe):
+Requires python v3, and packages 'pypeg2' and 'lxml' to run. To install the packages, run in the terminal (e.g. Cygwin):
 
     python -m pip install --upgrade pip
     pip install --upgrade pypeg2
