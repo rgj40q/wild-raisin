@@ -4,7 +4,7 @@ import re, sys, lxml
 from pypeg2 import *
 from pypeg2.xmlast import thing2xml
 
-not_a_reserved_word = '(?!(non|le|un|a|ab|ad|adverso|ante|apud|circum|cis|clam|con|concernente|contra|coram|cum|de|depost|desde|detra|dextra|durante|el|erga|ex|excepte|extra|for|foras|foris|in|infra|inter|intra|juxta|malgre|nonobstante|ob|per|por|post|pre|presso|preter|pro|prope|propter|re|salvo|secun|secundo|sin|sub|super|supra|sur|tra|trans|traverso|ultra|usque|verso|via|viste|adeo|amen|ancora|ave|basta|bis|bravo|guai|hallo|holla|miau|out|stop|vale|an|annon|atque|aut|comocunque|donec|dum|dunque|e|et|etsi|igitur|itaque|ma|mais|malgrado|nam|ne|nec|neque|ni|nisi|o|perque|pois|porque|postquam|proque|quam|quando|quandocunque|que|quia|quo|quod|sed|si|sinon|sive|ubi|ubicunque|utrum|vel|eze|oze|ezi|ozi|ezo|ozo|ezu|ozu|ezia|ozia|ezem|ozem|ezim|ozim|ezom|ozom|ezum|ozum|eziam|oziam|ezel|ozel|ezil|ozil|ezol|ozol|ezul|ozul|ezial|ozial|ezet|ozet|ezit|ozit|ezot|ozot|ezut|ozut|eziat|oziat|zero|uni|duo|tres|quatro|cinque|sex|septe|octo|nove|dece|vinti|trenta|quaranta|cinquanta|sexanta|septanta|octanta|novanta|cento|mille|million|milliardo|billion|billiardo|trillion|trilliardo|quatrillion|quatrilliardo|quintillion|quintilliardo|sextillion|sextilliardo|septillion|septilliardo|octillion|octilliardo|nonillion|nonilliardo|decillion|decilliardo|lu|lui|luo|luu|luia|di|plu|comma|ha|es|va|sia|era|qua|ui|plus|minus|leplus|leminus|prime|secunde|tertie|quarte|quinte|sexte|septime|octave|none|decime|vintesime|trentesime|quarantesime|cinquantesime|sexantesime|septantesime|octantesime|novantesime|centesime|millesime|millionesime|milliardesime|billionesime|billiardesime|trillionesime|trilliardesime|quatrillionesime|quatrilliardesime|quintillionesime|quintilliardesime|sextillionesime|sextilliardesime|septillionesime|septilliardesime|octillionesime|octilliardesime|nonillionesime|nonilliardesime|decillionesime|decilliardesime)(?=\W))'
+not_a_reserved_word = '(?!(non|le|un|a|ab|ad|adverso|ante|apud|circum|cis|clam|con|concernente|contra|coram|cum|de|depost|desde|detra|dextra|durante|el|erga|ex|excepte|extra|for|foras|foris|in|infra|inter|intra|juxta|malgre|nonobstante|ob|per|por|post|pre|presso|preter|pro|prope|propter|re|salvo|secun|secundo|sin|sub|super|supra|sur|tra|trans|traverso|ultra|usque|verso|via|viste|adeo|amen|ancora|ave|basta|bis|bravo|guai|hallo|holla|miau|out|stop|vale|an|annon|atque|aut|comocunque|donec|dum|dunque|e|et|etsi|igitur|itaque|ma|mais|malgrado|nam|ne|nec|neque|ni|nisi|o|perque|pois|porque|postquam|proque|quam|quando|quandocunque|que|quia|quo|quod|sed|si|sinon|sive|ubi|ubicunque|utrum|vel|eze|oze|ezi|ozi|ezo|ozo|ezu|ozu|ezia|ozia|ezem|ozem|ezim|ozim|ezom|ozom|ezum|ozum|eziam|oziam|ezel|ozel|ezil|ozil|ezol|ozol|ezul|ozul|ezial|ozial|ezet|ozet|ezit|ozit|ezot|ozot|ezut|ozut|eziat|oziat|zero|uni|duo|tres|quatro|cinque|sex|septe|octo|nove|dece|vinti|trenta|quaranta|cinquanta|sexanta|septanta|octanta|novanta|cento|mille|million|milliardo|billion|billiardo|trillion|trilliardo|quatrillion|quatrilliardo|quintillion|quintilliardo|sextillion|sextilliardo|septillion|septilliardo|octillion|octilliardo|nonillion|nonilliardo|decillion|decilliardo|di|plu|comma|ha|es|va|sia|era|qua|ui|plus|minus|leplus|leminus|prime|secunde|tertie|quarte|quinte|sexte|septime|octave|none|decime|vintesime|trentesime|quarantesime|cinquantesime|sexantesime|septantesime|octantesime|novantesime|centesime|millesime|millionesime|milliardesime|billionesime|billiardesime|trillionesime|trilliardesime|quatrillionesime|quatrilliardesime|quintillionesime|quintilliardesime|sextillionesime|sextilliardesime|septillionesime|septilliardesime|octillionesime|octilliardesime|nonillionesime|nonilliardesime|decillionesime|decilliardesime)(?=\W))'
 
 class Sentence(List):
     pass
@@ -1039,7 +1039,7 @@ class OrdinalNumeral(List):
     grammar = [N1e63_ord, N1e60_ord, N1e57_ord, N1e54_ord, N1e51_ord, N1e48_ord, N1e45_ord, N1e42_ord, N1e39_ord, N1e36_ord, N1e33_ord, N1e30_ord, N1e27_ord, N1e24_ord, N1e21_ord, N1e18_ord, N1e15_ord, N1e12_ord, N1e9_ord, N1e6_ord, N1e3_ord, N_1_999_ord]
 
 class AdjP4i(List):
-    grammar = optional(Negation), [Adj4, (SuperlativeAdv, Adj4), (ComparativeAdv, Adj4, optional(ComparativeConj, Sentence, SubsentenceEnd))]
+    grammar = optional(Negation), [Adj4, (SuperlativeAdv, Adj4), (ComparativeAdv, Adj4, optional(ComparativeConj, Sentence, optional(SubsentenceEnd)))]
 
 class AdjP4(List):
     grammar = AdjP4i, maybe_some(optional(ConjAdj4), AdjP4i)
@@ -1070,13 +1070,13 @@ class Arg4(List):
     grammar = [NP4, InfP4], maybe_some(ConjArg4, [NP4, InfP4])
 
 class AdvP4i(List):
-    grammar = optional(Negation), [Adv4, (Prep, Arg4), (SuperlativeAdv, Adv4), (ComparativeAdv, Adv4, optional(ComparativeConj, Sentence, SubsentenceEnd))]
+    grammar = optional(Negation), [Adv4, (Prep, Arg4), (SuperlativeAdv, Adv4), (ComparativeAdv, Adv4, optional(ComparativeConj, Sentence, optional(SubsentenceEnd)))]
 
 class AdvP4(List):
     grammar = AdvP4i, maybe_some(optional(ConjAdv4), AdvP4i)
 
 class AdjP3i(List):
-    grammar = optional(Negation), [Adj3, (SuperlativeAdv, Adj3), (ComparativeAdv, Adj3, optional(ComparativeConj, Sentence, SubsentenceEnd))], optional(AdvP4)
+    grammar = optional(Negation), [Adj3, (SuperlativeAdv, Adj3), (ComparativeAdv, Adj3, optional(ComparativeConj, Sentence, optional(SubsentenceEnd)))], optional(AdvP4)
 
 class AdjP3(List):
     grammar = AdjP3i, maybe_some(optional(ConjAdj3), AdjP3i)
@@ -1107,13 +1107,13 @@ class Arg3(List):
     grammar = [NP3, InfP3], maybe_some(ConjArg3, [NP3, InfP3])
 
 class AdvP3i(List):
-    grammar = optional(Negation), [Adv3, (Prep, Arg3), (SuperlativeAdv, Adv3), (ComparativeAdv, Adv3, optional(ComparativeConj, Sentence, SubsentenceEnd))], optional(AdvP4)
+    grammar = optional(Negation), [Adv3, (Prep, Arg3), (SuperlativeAdv, Adv3), (ComparativeAdv, Adv3, optional(ComparativeConj, Sentence, optional(SubsentenceEnd)))], optional(AdvP4)
 
 class AdvP3(List):
     grammar = AdvP3i, maybe_some(optional(ConjAdv3), AdvP3i)
 
 class AdjP2i(List):
-    grammar = optional(Negation), [Adj2, (SuperlativeAdv, Adj2), (ComparativeAdv, Adj2, optional(ComparativeConj, Sentence, SubsentenceEnd))], optional(AdvP3)
+    grammar = optional(Negation), [Adj2, (SuperlativeAdv, Adj2), (ComparativeAdv, Adj2, optional(ComparativeConj, Sentence, optional(SubsentenceEnd)))], optional(AdvP3)
 
 class AdjP2(List):
     grammar = AdjP2i, maybe_some(optional(ConjAdj2), AdjP2i)
@@ -1144,13 +1144,13 @@ class Arg2(List):
     grammar = [NP2, InfP2], maybe_some(ConjArg2, [NP2, InfP2])
 
 class AdvP2i(List):
-    grammar = optional(Negation), [Adv2, (Prep, Arg2), (SuperlativeAdv, Adv2), (ComparativeAdv, Adv2, optional(ComparativeConj, Sentence, SubsentenceEnd))], optional(AdvP3)
+    grammar = optional(Negation), [Adv2, (Prep, Arg2), (SuperlativeAdv, Adv2), (ComparativeAdv, Adv2, optional(ComparativeConj, Sentence, optional(SubsentenceEnd)))], optional(AdvP3)
 
 class AdvP2(List):
     grammar = AdvP2i, maybe_some(optional(ConjAdv2), AdvP2i)
 
 class AdjP1i(List):
-    grammar = optional(Negation), [Adj1, (SuperlativeAdv, Adj1), (ComparativeAdv, Adj1, optional(ComparativeConj, Sentence, SubsentenceEnd))], optional(AdvP2)
+    grammar = optional(Negation), [Adj1, (SuperlativeAdv, Adj1), (ComparativeAdv, Adj1, optional(ComparativeConj, Sentence, optional(SubsentenceEnd)))], optional(AdvP2)
 
 class AdjP1(List):
     grammar = AdjP1i, maybe_some(optional(ConjAdj1), AdjP1i)
@@ -1181,13 +1181,13 @@ class Arg1(List):
     grammar = [NP1, InfP1], maybe_some(ConjArg1, [NP1, InfP1])
 
 class AdvP1i(List):
-    grammar = optional(Negation), [Adv1, (Prep, Arg1), (SuperlativeAdv, Adv1), (ComparativeAdv, Adv1, optional(ComparativeConj, Sentence, SubsentenceEnd))], optional(AdvP2)
+    grammar = optional(Negation), [Adv1, (Prep, Arg1), (SuperlativeAdv, Adv1), (ComparativeAdv, Adv1, optional(ComparativeConj, Sentence, optional(SubsentenceEnd)))], optional(AdvP2)
 
 class AdvP1(List):
     grammar = AdvP1i, maybe_some(optional(ConjAdv1), AdvP1i)
 
 class AdjP0i(List):
-    grammar = optional(Negation), [Adj0, (SuperlativeAdv, Adj0), (ComparativeAdv, Adj0, optional(ComparativeConj, Sentence, SubsentenceEnd))], optional(AdvP1)
+    grammar = optional(Negation), [Adj0, (SuperlativeAdv, Adj0), (ComparativeAdv, Adj0, optional(ComparativeConj, Sentence, optional(SubsentenceEnd)))], optional(AdvP1)
 
 class AdjP0(List):
     grammar = AdjP0i, maybe_some(optional(ConjAdj0), AdjP0i)
@@ -1218,7 +1218,7 @@ class Arg0(List):
     grammar = [NP0, InfP0], maybe_some(ConjArg0, [NP0, InfP0])
 
 class AdvP0i(List):
-    grammar = optional(Negation), [Adv0, (Prep, Arg0), (SuperlativeAdv, Adv0), (ComparativeAdv, Adv0, optional(ComparativeConj, Sentence, SubsentenceEnd))], optional(AdvP1)
+    grammar = optional(Negation), [Adv0, (Prep, Arg0), (SuperlativeAdv, Adv0), (ComparativeAdv, Adv0, optional(ComparativeConj, Sentence, optional(SubsentenceEnd)))], optional(AdvP1)
 
 class AdvP0(List):
     grammar = AdvP0i, maybe_some(optional(ConjAdv0), AdvP0i)
