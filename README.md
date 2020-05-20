@@ -6,4 +6,4 @@ Requires python v3, and packages 'pypeg2' and 'lxml' to run. To install the pack
 
 Usage:
 
-    echo some text to be parsed | python parser.py
+    echo some text to be parsed | ./parser.py
